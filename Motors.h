@@ -17,10 +17,12 @@ class Motors
     void rechts(int tijd);
     void achter(int tijd);
     void stoppen();
-    int geefPotWaarde(int potmeter);
+//    void printPotWaarde(int potmeter);
   private:
-    int _pot1;
-    int _pot2;
+//    int _pot1;
+//    int _pot2;
+    int snelheidmotor1;
+    int snelheidmotor2;
 };
 
 #endif
