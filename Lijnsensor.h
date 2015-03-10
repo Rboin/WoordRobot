@@ -12,7 +12,7 @@ class Lijnsensor
   public:
     Lijnsensor(int pin);
     int geefWaarde();
-    boolean zietLijn();
+    bool zietLijn();
     void printSerial();
   private:
     int _pin;

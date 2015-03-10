@@ -17,7 +17,7 @@ int Lijnsensor::geefWaarde()
   return _waarde;
 }
 
-boolean Lijnsensor::zietLijn()
+bool Lijnsensor::zietLijn()
 {
   if(analogRead(_pin)>1000)
     return true;
