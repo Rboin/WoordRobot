@@ -10,7 +10,7 @@ Lijnsensor sensor3(A2);
 
 void setup()
 {
-  motor.rijden(10000);
+  motor.links(10000);
 }
 
 void loop()
