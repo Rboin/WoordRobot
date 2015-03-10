@@ -37,16 +37,24 @@ void Motors::verandersnelheid(int delta)
 
 void Motors::links(int tijd)
 {
-	digitalWrite(7, HIGH);
+	digitalWrite(4, HIGH);
+	digitalWrite(7, LOW);
+	analogWrite(5, this->snelheidmotor1);
 	analogWrite(6, this->snelheidmotor2);
 	delay(tijd);
+	analogWrite(5, 0);
+	analogWrite(6, 0);
 }
     
 void Motors::rechts(int tijd)
 {
-	digitalWrite(4, HIGH);
+	digitalWrite(4, LOW);
+	digitalWrite(7, HIGH);
 	analogWrite(5, this->snelheidmotor1);
+	analogWrite(6, this->snelheidmotor2);
 	delay(tijd);
+	analogWrite(5, 0);
+	analogWrite(6, 0);
 }
 
 void Motors::achter(int tijd)

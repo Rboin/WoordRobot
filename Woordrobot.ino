@@ -6,7 +6,7 @@ Motors motor(A0, A1);
 
 void setup()
 {
-  motor.rijden(10000);
+  motor.links(10000);
 }
 
 void loop()
