@@ -22,8 +22,8 @@ void Motors::rijden(int tijd)
 {    
   digitalWrite(4,HIGH);  
   digitalWrite(7,HIGH);   
-  analogWrite(5, snelheidmotor1);
-  analogWrite(6, snelheidmotor2);
+  analogWrite(5, this->snelheidmotor1);
+  analogWrite(6, this->snelheidmotor2);
   delay(tijd);
   analogWrite(5, 0);
   analogWrite(6, 0);
@@ -31,22 +31,37 @@ void Motors::rijden(int tijd)
     
 void Motors::verandersnelheid(int delta)
 {
+	this->snelheidmotor1 += delta;
+	this->snelheidmotor2 += delta;
 }
 
 void Motors::links(int tijd)
 {
+	digitalWrite(7, HIGH);
+	analogWrite(6, this->snelheidmotor2);
+	delay(tijd);
 }
     
 void Motors::rechts(int tijd)
 {
+	digitalWrite(4, HIGH);
+	analogWrite(5, this->snelheidmotor1);
+	delay(tijd);
 }
 
 void Motors::achter(int tijd)
 {
+	digitalWrite(4, LOW);
+	digitalWrite(7, LOW);
+	analogWrite(5, this->snelheidmotor1);
+	analogWrite(6, this->snelheidmotor2);
+	delay(tijd);
 }
 
 void Motors::stoppen()
 {
+	analogWrite(5, 0);
+	analogWrite(6, 0);
 }
 
 //void Motors::printPotWaarde(int potmeter)

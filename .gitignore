@@ -2,3 +2,6 @@
 arduino
 .cproject
 .project
+Release
+spec.d
+.ino.cpp
