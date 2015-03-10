@@ -14,8 +14,8 @@ Motors::Motors(int pot1, int pot2)
 //  pinMode(pot2, INPUT);
   pinMode(4, OUTPUT);
   pinMode(7, OUTPUT);
-  snelheidmotor1 = 120;
-  snelheidmotor2 = 110;
+  snelheidmotor1 = 160;
+  snelheidmotor2 = 170;
 }
 
 void Motors::rijden(int tijd)
