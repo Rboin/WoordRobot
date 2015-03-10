@@ -11,6 +11,7 @@ class Motors
 {
   public:
     Motors(int pot1,int pot2);
+    void rijden();
     void rijden(int tijd);
     void verandersnelheid(int delta);
     void links(int tijd);
