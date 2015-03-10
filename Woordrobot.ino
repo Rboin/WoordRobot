@@ -40,29 +40,29 @@ void volgLijn() {
 	}
 }
 
-//bool zoekReferentieLijn() {
-//	bool gevonden = false;
-//	while (true) {
-//		// Robot ziet helemaal niks (startpunt)
-//		if (!sensor1.zietLijn() && !sensor2.zietLijn() && !sensor3.zietLijn())
-//			motor.rijden();
-//
-//		// Robot heeft een lijn gevonden en draait naar links
-//		if (sensor1.zietLijn() && sensor2.zietLijn() && !sensor3.zietLijn()) {
-//			motor.stoppen();
-//			motor.links(500);
-//		}
-//
-//		if (!sensor1.zietLijn() && !sensor2.zietLijn() && sensor3.zietLijn()) {
-//			motor.rijden(1000);
-//			gevonden = true;
-//			break;
-//		}
-//		// Robot zit op een dikke lijn
-//		if (sensor1.zietLijn() && sensor2.zietLijn() && sensor3.zietLijn()) {
-//			motor.stoppen();
-//		}
-//	}
-//
-//	return gevonden;
-//}
+bool zoekReferentieLijn() {
+	bool gevonden = false;
+	while (!gevonden) {
+		// Robot ziet helemaal niks (startpunt)
+		if (!sensor1.zietLijn() && !sensor2.zietLijn() && !sensor3.zietLijn())
+			motor.rijden();
+		// Robot zit op een lijn
+		if(sensor1.zietLijn() && sensor2.zietLijn()) {
+			// Robot rijdt over de lijn
+			motor.rijden();
+			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
+			if(sensor1.zietLijn() && sensor2.zietLijn() && sensor3.zietLijn()) {
+				motor.stoppen();
+				motor.links(500);
+			// Of is de lijn niet dik genoeg voor alle 3 en raakt
+			//	alleen de achterste de lijn? (Referentie lijn)
+			} else if (!sensor1.zietLijn() && !sensor2.zietLijn() && sensor3.zietLijn()) {
+				motor.stoppen();
+				gevonden = true;
+				break;
+			}
+		}
+	}
+
+	return gevonden;
+}
