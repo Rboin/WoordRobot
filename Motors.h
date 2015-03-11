@@ -24,7 +24,7 @@ class Motors
   private:
 //    int _pot1;
 //    int _pot2;
-    int snelheidMotorRechts;
+    int snelheidMotorLinkss;
     int snelheidMotorLinks;
     double oneDegree;
 };

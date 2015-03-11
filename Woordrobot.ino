@@ -24,8 +24,8 @@ void setup() {
 }
 
 void loop() {
-	motor.rijden(2000);
-	motor.achter(2000);
+	motor.rijden(4000);
+	motor.achter(4000);
 }
 
 void volgLijn() {
