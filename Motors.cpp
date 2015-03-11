@@ -15,10 +15,10 @@ Motors::Motors(int pot1, int pot2) {
 	pinMode(7, OUTPUT);
 
 	// 1 graden is X aantal ms
-	oneDegree = 23.8095;
+	oneDegree = 20.0694444444;
 
 	//rechts (rood)
-	snelheidMotorRechts = 170;
+	snelheidMotorRechts = 190;
 	//links (geel)
 	snelheidMotorLinks = 170;
 }

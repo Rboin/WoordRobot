@@ -8,7 +8,11 @@ Lijnsensor sensor3(A2);
 bool volgen = false;
 
 void setup() {
-	motor.links(8571);
+
+
+
+
+
 //	if (zoekReferentieLijn()) {
 //
 //	}
@@ -20,6 +24,8 @@ void setup() {
 }
 
 void loop() {
+	motor.rijden(2000);
+	motor.achter(2000);
 }
 
 void volgLijn() {
