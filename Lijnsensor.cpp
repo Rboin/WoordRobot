@@ -8,11 +8,11 @@
 
 Lijnsensor::Lijnsensor(int pin) {
 	_pin = pin;
+	_waarde = analogRead(_pin);
 }
 
 int Lijnsensor::geefWaarde() {
-	_waarde = analogRead(_pin);
-	return _waarde;
+	return this->_waarde;
 }
 
 bool Lijnsensor::zietLijn() {

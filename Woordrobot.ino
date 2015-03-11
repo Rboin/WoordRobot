@@ -24,7 +24,21 @@ void loop() {
 //	motor->achter(4000);
 }
 
-
+void f() {
+	motor->rijden(3000);
+	motor->rechts(90.0);
+	motor->rijden(800);
+	motor->links(180.0);
+	motor->rijden(800);
+	motor->links(90.0);
+	motor->rijden(1000);
+	motor->links(90.0);
+	motor->rijden(500);
+	motor->links(180.0);
+	motor->rijden(500);
+	motor->links(90.0);
+	motor->rijden(2000);
+}
 //void volgLijn() {
 //	/**
 //	 * ----------------
