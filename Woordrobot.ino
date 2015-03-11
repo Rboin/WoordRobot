@@ -6,24 +6,24 @@ bool volgen = false;
 
 void setup() {
 
+	Serial.begin(9600);
 
-
-
-
-//	if (zoekReferentieLijn()) {
-//
-//	}
-
-//	volgen = true;
-//	volgLijn();
-//	delay(1000);
-//	volgen = false;
 }
 
 void loop() {
-	motor->rijden(4000);
-	motor->achter(4000);
+
+	Serial.println("Sensor 1:");
+	motor->getSensor1()->printSerial();
+	Serial.println("Sensor 2:");
+	motor->getSensor2()->printSerial();
+	Serial.println("Sensor 3:");
+	motor->getSensor3()->printSerial();
+	delay(1000);
+
+//	motor->rijden(4000);
+//	motor->achter(4000);
 }
+
 
 //void volgLijn() {
 //	/**
@@ -50,31 +50,3 @@ void loop() {
 //	}
 //}
 //
-//bool zoekReferentieLijn() {
-//	bool gevonden = false;
-//	while (!gevonden) {
-//		// Robot ziet helemaal niks (startpunt)
-//		if (!sensor1.zietLijn() && !sensor2.zietLijn() && !sensor3.zietLijn())
-//			motor.rijden();
-//		// Robot zit op een lijn
-//		if (sensor1.zietLijn() && sensor2.zietLijn()) {
-//			// Robot rijdt over de lijn
-//			motor.rijden();
-//			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
-//			if (sensor1.zietLijn() && sensor2.zietLijn()
-//					&& sensor3.zietLijn()) {
-//				motor.stoppen();
-//				motor.links(500);
-//				// Of is de lijn niet dik genoeg voor alle 3 en raakt
-//				//	alleen de achterste de lijn? (Referentie lijn)
-//			} else if (!sensor1.zietLijn() && !sensor2.zietLijn()
-//					&& sensor3.zietLijn()) {
-//				motor.stoppen();
-//				gevonden = true;
-//				break;
-//			}
-//		}
-//	}
-//
-//	return gevonden;
-//}

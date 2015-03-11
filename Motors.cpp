@@ -51,14 +51,14 @@ void Motors::rijden(int tijd) {
 		currentMillis = millis();
 	}
 	while (this->snelheidMotorLinks >= 100) {
-		this->snelheidMotorLinks -= 10;
-		this->snelheidMotorRechts -= 10;
-		delay(50);
+		while (currentMillis - previousMillis > 50) {
+			this->snelheidMotorLinks -= 10;
+			this->snelheidMotorRechts -= 10;
+			currentMillis = millis();
+		}
 	}
 	this->snelheidMotorLinks = oudeLinks;
 	this->snelheidMotorRechts = oudeRechts;
-//	analogWrite(5, 0);
-//	analogWrite(6, 0);
 }
 
 void Motors::verandersnelheid(int delta) {
@@ -67,13 +67,14 @@ void Motors::verandersnelheid(int delta) {
 }
 
 void Motors::links(int tijd) {
-	digitalWrite(4, HIGH);
-	digitalWrite(7, LOW);
-	analogWrite(5, this->snelheidMotorLinks);
-	analogWrite(6, this->snelheidMotorRechts);
-	delay(tijd);
-	analogWrite(5, 0);
-	analogWrite(6, 0);
+	long currentMillis = millis();
+	previousMillis = currentMillis;
+	while (currentMillis - previousMillis > tijd) {
+		digitalWrite(4, HIGH);
+		digitalWrite(7, LOW);
+		analogWrite(5, this->snelheidMotorLinks);
+		analogWrite(6, this->snelheidMotorRechts);
+	}
 }
 
 /**
@@ -82,23 +83,25 @@ void Motors::links(int tijd) {
  * @param double degrees
  */
 void Motors::links(double degrees) {
-	digitalWrite(4, HIGH);
-	digitalWrite(7, LOW);
-	analogWrite(5, this->snelheidMotorLinks);
-	analogWrite(6, this->snelheidMotorRechts);
-	delay(degrees * this->oneDegree);
-	analogWrite(5, 0);
-	analogWrite(6, 0);
+	long currentMillis = millis();
+	previousMillis = currentMillis;
+	while (currentMillis - previousMillis > (degrees * this->oneDegree)) {
+		digitalWrite(4, HIGH);
+		digitalWrite(7, LOW);
+		analogWrite(5, this->snelheidMotorLinks);
+		analogWrite(6, this->snelheidMotorRechts);
+	}
 }
 
 void Motors::rechts(int tijd) {
-	digitalWrite(4, LOW);
-	digitalWrite(7, HIGH);
-	analogWrite(5, this->snelheidMotorLinks);
-	analogWrite(6, this->snelheidMotorRechts);
-	delay(tijd);
-	analogWrite(5, 0);
-	analogWrite(6, 0);
+	long currentMillis = millis();
+	previousMillis = currentMillis;
+	while (currentMillis - previousMillis > tijd) {
+		digitalWrite(4, LOW);
+		digitalWrite(7, HIGH);
+		analogWrite(5, this->snelheidMotorLinks);
+		analogWrite(6, this->snelheidMotorRechts);
+	}
 }
 
 /**
@@ -107,13 +110,15 @@ void Motors::rechts(int tijd) {
  * @param double degrees
  */
 void Motors::rechts(double degrees) {
-	digitalWrite(4, LOW);
-	digitalWrite(7, HIGH);
-	analogWrite(5, this->snelheidMotorLinks);
-	analogWrite(6, this->snelheidMotorRechts);
-	delay(degrees * this->oneDegree);
-	analogWrite(5, 0);
-	analogWrite(6, 0);
+	long currentMillis = millis();
+	previousMillis = currentMillis;
+	while (currentMillis - previousMillis > (degrees * this->oneDegree)) {
+		digitalWrite(4, LOW);
+		digitalWrite(7, HIGH);
+
+		analogWrite(5, this->snelheidMotorLinks);
+		analogWrite(6, this->snelheidMotorRechts);
+	}
 }
 
 void Motors::achter(int tijd) {
@@ -133,9 +138,10 @@ void Motors::achter(int tijd) {
 	}
 
 	while (this->snelheidMotorLinks >= 100) {
-		this->snelheidMotorLinks -= 10;
-		this->snelheidMotorRechts -= 10;
-		delay(50);
+		while (currentMillis - previousMillis > tijd) {
+			this->snelheidMotorLinks -= 10;
+			this->snelheidMotorRechts -= 10;
+		}
 	}
 	this->snelheidMotorLinks = oudeLinks;
 	this->snelheidMotorRechts = oudeRechts;
@@ -159,7 +165,41 @@ bool Motors::lijnGevonden() {
 	return gevonden;
 }
 
-//void Motors::printPotWaarde(int potmeter)
-//{
-//  Serial.println(map(analogRead(potmeter), 0, 1023, 0 ,255));
-//}
+Lijnsensor* Motors::getSensor1() {
+	return this->s1;
+}
+Lijnsensor* Motors::getSensor2() {
+	return this->s2;
+}
+Lijnsensor* Motors::getSensor3() {
+	return this->s3;
+}
+
+bool Motors::vindReferentieLijn() {
+	bool gevonden = false;
+	while (!gevonden) {
+		// Robot ziet helemaal niks (startpunt)
+		if (!this->s1->zietLijn() && !this->s2->zietLijn()
+				&& !this->s3->zietLijn())
+			this->rijden();
+		// Robot zit op een lijn
+		if (this->s1->zietLijn() && this->s2->zietLijn()) {
+			// Robot rijdt over de lijn
+			this->rijden();
+			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
+			if (this->s1->zietLijn() && this->s2->zietLijn()
+					&& this->s3->zietLijn()) {
+				this->stoppen();
+				this->links(90.0);
+				// Of is de lijn niet dik genoeg voor alle 3 en raakt
+				//	alleen de achterste de lijn? (Referentie lijn)
+			} else if (!this->s1->zietLijn() && !this->s2->zietLijn()
+					&& this->s3->zietLijn()) {
+				this->stoppen();
+				gevonden = true;
+				break;
+			}
+		}
+	}
+	return gevonden;
+}
