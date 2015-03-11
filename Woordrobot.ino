@@ -12,17 +12,21 @@ void setup() {
 
 void loop() {
 
-	Serial.println("Sensor 1:");
+	Serial.print("Sensor 1: ");
 	motor->getSensor1()->printSerial();
-	Serial.println("Sensor 2:");
+	Serial.print(", Sensor 2: ");
 	motor->getSensor2()->printSerial();
-	Serial.println("Sensor 3:");
+	Serial.print(", Sensor 3: ");
 	motor->getSensor3()->printSerial();
-	delay(1000);
+	Serial.println();
+	Serial.println("===================================================");
+	delay(2000);
 
 //	motor->rijden(4000);
 //	motor->achter(4000);
 }
+
+
 
 void f() {
 	motor->rijden(3000);
@@ -37,30 +41,18 @@ void f() {
 	motor->links(180.0);
 	motor->rijden(500);
 	motor->links(90.0);
-	motor->rijden(2000);
+	motor->rijden(4000);
 }
-//void volgLijn() {
-//	/**
-//	 * ----------------
-//	 *    1      2
-//	 *
-//	 * 		 3
-//	 * -----------------
-//	 */
-//	while (volgen) {
-//		if (!sensor1.zietLijn() && !sensor2.zietLijn() && sensor3.zietLijn())
-//			motor.rijden();
-//		if (sensor1.zietLijn() && !sensor2.zietLijn() && sensor3.zietLijn())
-//			motor.links(500);
-////		while (sensor1.zietLijn() && !sensor2.zietLijn() && sensor3.zietLijn())
-////			// moet nog naar deg
-////			motor.rechts(1);
-//		if (!sensor1.zietLijn() && sensor2.zietLijn() && sensor3.zietLijn()) {
-//			motor.rechts(500);
-////			while (!sensor1.zietLijn() && sensor2.zietLijn() && sensor3.zietLijn())
-////				// moet nog naar deg
-////				motor.rechts(1);
-//		}
-//	}
-//}
-//
+
+void volgen(bool volgen) {
+	while(volgen) {
+		while(!motor->getSensor1()->zietLijn() && !motor->getSensor2()->zietLijn() && !motor->getSensor3()->zietLijn())
+			motor->rijden();
+		while(motor->getSensor1()->zietLijn() && !motor->getSensor2()->zietLijn() && motor->getSensor3()->zietLijn())
+			motor->links(5.0);
+		while (!motor->getSensor1()->zietLijn() && motor->getSensor2()->zietLijn() && motor->getSensor3()->zietLijn())
+			motor->rechts(5.0);
+		while(!motor->getSensor1()->zietLijn() && !motor->getSensor2()->zietLijn() /*&& motor->getSensor3()->zietLijn()*/)
+			motor->rijden(4000);
+	}
+}

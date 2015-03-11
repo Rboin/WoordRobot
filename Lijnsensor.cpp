@@ -23,5 +23,5 @@ bool Lijnsensor::zietLijn() {
 }
 
 void Lijnsensor::printSerial() {
-	Serial.println(this->geefWaarde());
+	Serial.print(this->geefWaarde());
 }
