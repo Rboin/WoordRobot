@@ -16,7 +16,6 @@ Motors::Motors(int pot1, int pot2) {
 
 	// 1 graden is X aantal ms
 	oneDegree = 20.0694444444;
-
 	//rechts (rood)
 	snelheidMotorRechts = 190;
 	//links (geel)
@@ -31,11 +30,15 @@ void Motors::rijden() {
 }
 
 void Motors::rijden(int tijd) {
-	digitalWrite(4, HIGH);
-	digitalWrite(7, HIGH);
-	analogWrite(5, this->snelheidMotorRechts);
-	analogWrite(6, this->snelheidMotorLinks);
-	delay(tijd);
+	long currentMillis = millis();
+	previousMillis = currentMillis;
+	while (currentMillis - previousMillis > tijd) {
+		digitalWrite(4, HIGH);
+		digitalWrite(7, HIGH);
+		analogWrite(5, this->snelheidMotorRechts);
+		analogWrite(6, this->snelheidMotorLinks);
+		currentMillis = millis();
+	}
 	analogWrite(5, 0);
 	analogWrite(6, 0);
 }
@@ -65,7 +68,7 @@ void Motors::links(double degrees) {
 	digitalWrite(7, LOW);
 	analogWrite(5, this->snelheidMotorRechts);
 	analogWrite(6, this->snelheidMotorLinks);
-	delay(degrees*this->oneDegree);
+	delay(degrees * this->oneDegree);
 	analogWrite(5, 0);
 	analogWrite(6, 0);
 }
@@ -90,7 +93,7 @@ void Motors::rechts(double degrees) {
 	digitalWrite(7, HIGH);
 	analogWrite(5, this->snelheidMotorRechts);
 	analogWrite(6, this->snelheidMotorLinks);
-	delay(degrees*this->oneDegree);
+	delay(degrees * this->oneDegree);
 	analogWrite(5, 0);
 	analogWrite(6, 0);
 }

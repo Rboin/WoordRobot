@@ -27,6 +27,7 @@ class Motors
     int snelheidMotorLinkss;
     int snelheidMotorLinks;
     double oneDegree;
+    long previousMillis = 0;
 };
 
 #endif
