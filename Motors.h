@@ -34,7 +34,7 @@ private:
 	double oneDegree;
 
 	// Pointer variables naar de Lijnsensor class
-	Lijnsensor * s1, *s2, *s3;
+	Lijnsensor *s1, *s2, *s3;
 	long previousMillis = 0;
 };
 

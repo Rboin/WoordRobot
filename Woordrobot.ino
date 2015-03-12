@@ -1,7 +1,7 @@
 #include "Motors.h"
 
 //Pointer naar de Motors class
-Motors * motor = new Motors();
+Motors *motor = new Motors();
 //bool volgen = false;
 
 void setup() {
@@ -12,6 +12,9 @@ void setup() {
 //	motor->links(90.0);
 //	motor->rechts(180.0);
 	motor->rechts(360.0);
+	if(motor->vindReferentieLijn()) {
+		// letters schrijven
+	}
 }
 
 void loop() {

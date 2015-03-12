@@ -6,11 +6,13 @@
 #define Lijnsensor_h
 
 #include "Arduino.h"
+//#include "Motors.h"
 
 class Lijnsensor {
 public:
 	Lijnsensor(int pin);
-	int geefWaarde();bool zietLijn();
+	int geefWaarde();
+	bool zietLijn();
 	void printSerial();
 private:
 	int _pin;
