@@ -9,7 +9,6 @@
 #define ROBOT_H_
 
 #include <Arduino.h>
-#include <Servo.h>
 #include "Lijnsensor.h"
 #include "Motors.h"
 
@@ -22,12 +21,7 @@ public:
 	Lijnsensor getSensor2();
 	Lijnsensor getSensor3();
 	Motors getMotor();
-	void penDown(int stopTijd);
-	void penUp(int stopTijd);
 private:
-	const int BENEDEN = 125;
-	const int BOVEN = 25;
-	Servo myservo;
 	Motors motor;
 	Lijnsensor s1, s2, s3;
 };

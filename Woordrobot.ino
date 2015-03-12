@@ -1,5 +1,5 @@
+#include <Servo.h>
 #include "Robot.h"
-
 //Pointer naar de Motors class
 Robot robot = Robot();
 //bool volgen = false;
@@ -7,13 +7,11 @@ Robot robot = Robot();
 void setup() {
 
 //	Serial.begin(9600);
-//	motor.rechts(180.0);
-//	robot.getMotor().rechts(180.0);
-//	if(robot->vindReferentieLijn()) {
-//		// letters schrijven
-//	}
-	robot.penUp(5);
-	robot.penDown(5);
+
+	Servo myservo = Servo();
+	myservo.attach(9);
+	penDown(5, myservo);
+	penUp(5, myservo);
 }
 
 void loop() {
@@ -64,3 +62,18 @@ void loop() {
 //			motor->rijden(4000);
 //	}
 //}
+
+void penDown(int stopTijd, Servo myservo) {
+	for (int i = 25; i < 125; i++) {
+		myservo.write(i);
+
+		delay(stopTijd);
+	}
+}
+
+void penUp(int stopTijd, Servo myservo) {
+	for (int i = 125; i > 25; i--) {
+		myservo.write(i);
+		delay(stopTijd);
+	}
+}

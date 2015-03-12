@@ -15,8 +15,6 @@ Robot::Robot() {
 	s3 = Lijnsensor(A2);
 	// Initialiseer de Motoren
 	motor = Motors();
-	//myservo = Servo();
-	myservo.attach(9);
 }
 
 bool Robot::lijnGevonden() {
@@ -63,16 +61,4 @@ Motors Robot::getMotor() {
 	return this->motor;
 }
 
-void Robot::penDown(int stopTijd) {
-	for (int i = this->BOVEN; i < this->BENEDEN; i++) {
-		this->myservo.write(i);
-		delay(stopTijd);
-	}
-}
 
-void Robot::penUp(int stopTijd) {
-	for (int i = this->BENEDEN; i > this->BOVEN; i--) {
-		this->myservo.write(i);
-		delay(stopTijd);
-	}
-}
