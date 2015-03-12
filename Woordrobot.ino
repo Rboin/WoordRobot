@@ -1,20 +1,19 @@
-#include "Motors.h"
+#include "Robot.h"
 
 //Pointer naar de Motors class
-Motors *motor = new Motors();
+Robot robot = Robot();
 //bool volgen = false;
 
 void setup() {
 
-	Serial.begin(9600);
-//        motor->rijden(1000);
-//	motor->rechts(360.0);
-//	motor->links(90.0);
-//	motor->rechts(180.0);
-	motor->rechts(360.0);
-	if(motor->vindReferentieLijn()) {
-		// letters schrijven
-	}
+//	Serial.begin(9600);
+//	motor.rechts(180.0);
+//	robot.getMotor().rechts(180.0);
+//	if(robot->vindReferentieLijn()) {
+//		// letters schrijven
+//	}
+	robot.penUp(5);
+	robot.penDown(5);
 }
 
 void loop() {

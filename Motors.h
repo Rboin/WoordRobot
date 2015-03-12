@@ -21,20 +21,12 @@ public:
 	void rechts(double degrees);
 	void achter(int tijd);
 	void stoppen();
-	bool lijnGevonden();
-	bool vindReferentieLijn();
-	Lijnsensor* getSensor1();
-	Lijnsensor* getSensor2();
-	Lijnsensor* getSensor3();
 
 //    void printPotWaarde(int potmeter);
 private:
 	int snelheidMotorLinks;
 	int snelheidMotorRechts;
 	double oneDegree;
-
-	// Pointer variables naar de Lijnsensor class
-	Lijnsensor *s1, *s2, *s3;
 	long previousMillis = 0;
 };
 

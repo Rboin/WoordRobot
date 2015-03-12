@@ -14,18 +14,12 @@ Motors::Motors() {
 	pinMode(7, OUTPUT);
 
 	// 1 graden is X aantal ms
-	oneDegree = 19.722222222222;
+	oneDegree = 19.722222222;
 
 	// motoren
 	snelheidMotorLinks = 185;
 
 	snelheidMotorRechts = 170;
-
-	s1 = new Lijnsensor(A0);
-
-	s2 = new Lijnsensor(A1);
-	s3 = new Lijnsensor(A2);
-	// sensoren
 }
 
 void Motors::rijden() {
@@ -42,8 +36,6 @@ void Motors::rijden(int tijd) {
 	previousMillis = currentMillis;
 	while (currentMillis - previousMillis < tijd) {
 		Serial.println(currentMillis - previousMillis);
-		if (this->lijnGevonden())
-			this->stoppen();
 
 		digitalWrite(4, HIGH);
 		digitalWrite(7, HIGH);
@@ -140,6 +132,7 @@ void Motors::rechts(double degrees) {
 	}
 	analogWrite(5, 0);
 	analogWrite(6, 0);
+	Serial.println("klaar!");
 }
 
 void Motors::achter(int tijd) {
@@ -148,9 +141,6 @@ void Motors::achter(int tijd) {
 	long currentMillis = millis();
 	previousMillis = currentMillis;
 	while (currentMillis - previousMillis < tijd) {
-		if (this->lijnGevonden())
-			this->stoppen();
-
 		digitalWrite(4, HIGH);
 		digitalWrite(7, HIGH);
 		analogWrite(5, this->snelheidMotorLinks);
@@ -173,54 +163,4 @@ void Motors::achter(int tijd) {
 void Motors::stoppen() {
 	analogWrite(5, 0);
 	analogWrite(6, 0);
-}
-
-bool Motors::lijnGevonden() {
-	bool gevonden = false;
-	if (this->s1->zietLijn())
-		gevonden = true;
-	if (this->s2->zietLijn())
-		gevonden = true;
-	if (this->s3->zietLijn())
-		gevonden = true;
-	return gevonden;
-}
-
-Lijnsensor* Motors::getSensor1() {
-	return this->s1;
-}
-Lijnsensor* Motors::getSensor2() {
-	return this->s2;
-}
-Lijnsensor* Motors::getSensor3() {
-	return this->s3;
-}
-
-bool Motors::vindReferentieLijn() {
-	bool gevonden = false;
-	while (!gevonden) {
-		// Robot ziet helemaal niks (startpunt)
-		if (!this->s1->zietLijn() && !this->s2->zietLijn()
-				&& !this->s3->zietLijn())
-			this->rijden();
-		// Robot zit op een lijn
-		if (this->s1->zietLijn() && this->s2->zietLijn()) {
-			// Robot rijdt over de lijn
-			this->rijden();
-			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
-			if (this->s1->zietLijn() && this->s2->zietLijn()
-					&& this->s3->zietLijn()) {
-				this->stoppen();
-				this->links(90.0);
-				// Of is de lijn niet dik genoeg voor alle 3 en raakt
-				//	alleen de achterste de lijn? (Referentie lijn)
-			} else if (!this->s1->zietLijn() && !this->s2->zietLijn()
-					&& this->s3->zietLijn()) {
-				this->stoppen();
-				gevonden = true;
-				break;
-			}
-		}
-	}
-	return gevonden;
 }

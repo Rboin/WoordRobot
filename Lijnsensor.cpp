@@ -6,6 +6,7 @@
 #include "Arduino.h"
 #include "Lijnsensor.h"
 
+Lijnsensor::Lijnsensor() {}
 Lijnsensor::Lijnsensor(int pin) {
 	_pin = pin;
 	_waarde = analogRead(_pin);

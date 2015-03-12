@@ -10,6 +10,8 @@
 
 class Lijnsensor {
 public:
+	// Default constructor aangemaakt vanwege declaratie in Robot.h
+	Lijnsensor();
 	Lijnsensor(int pin);
 	int geefWaarde();
 	bool zietLijn();
