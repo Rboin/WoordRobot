@@ -8,46 +8,36 @@
 
 #include "Robot.h"
 
-Robot::Robot() {
-	// Initialiseer de lijnsensoren
-	s1 = Lijnsensor(A0);
-	s2 = Lijnsensor(A1);
-	s3 = Lijnsensor(A2);
+Robot::Robot(Lijnsensor handler) {
+	this->handler = handler;
 	// Initialiseer de Motoren
 	motor = Motors();
 }
 
-bool Robot::lijnGevonden() {
-	bool gevonden = false;
-	if (this->s1.zietLijn())
-		gevonden = true;
-	if (this->s2.zietLijn())
-		gevonden = true;
-	if (this->s3.zietLijn())
-		gevonden = true;
-	return gevonden;
-}
 
 bool Robot::vindReferentieLijn() {
 	bool gevonden = false;
+	SensorListener **sensoren = this->handler.getSensoren();
 	while (!gevonden) {
 		// Robot ziet helemaal niks (startpunt)
-		if (!this->s1.zietLijn() && !this->s2.zietLijn()
-				&& !this->s3.zietLijn())
-			this->motor.rijden();
+		if (!sensoren[1]->zietLijn() && !sensoren[2]->zietLijn()
+				&& !sensoren[3]->zietLijn())
+			this->handler.update();
 		// Robot zit op een lijn
-		if (this->s1.zietLijn() && this->s2.zietLijn()) {
+		if (sensoren[1]->zietLijn() && sensoren[2]->zietLijn()) {
 			// Robot rijdt over de lijn
-			this->motor.rijden();
+			this->handler.update();
 			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
-			if (this->s1.zietLijn() && this->s2.zietLijn()
-					&& this->s3.zietLijn()) {
+			if (sensoren[1]->zietLijn() && sensoren[2]->zietLijn()
+					&& sensoren[3]->zietLijn()) {
 				this->motor.stoppen();
-				this->motor.links(90.0);
+				this->motor.links(45.0);
+				this->motor.rijden(2000);
+				this->handler.update();
 				// Of is de lijn niet dik genoeg voor alle 3 en raakt
 				//	alleen de achterste de lijn? (Referentie lijn)
-			} else if (!this->s1.zietLijn() && !this->s2.zietLijn()
-					&& this->s3.zietLijn()) {
+			} else if (!sensoren[1]->zietLijn() && !sensoren[2]->zietLijn()
+					&& sensoren[3]->zietLijn()) {
 				this->motor.stoppen();
 				gevonden = true;
 				break;

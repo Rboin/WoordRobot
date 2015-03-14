@@ -6,23 +6,16 @@
 #include "Arduino.h"
 #include "Lijnsensor.h"
 
-Lijnsensor::Lijnsensor() {}
-Lijnsensor::Lijnsensor(int pin) {
-	_pin = pin;
-	_waarde = analogRead(_pin);
+void Lijnsensor::attachSensor(SensorListener *listener, int index) {
+	this->sensoren[index] = listener;
 }
 
-int Lijnsensor::geefWaarde() {
-	return this->_waarde;
+SensorListener **Lijnsensor::getSensoren() {
+	return this->sensoren;
 }
 
-bool Lijnsensor::zietLijn() {
-	if (analogRead(_pin) > 1000)
-		return true;
-	else
-		return false;
-}
-
-void Lijnsensor::printSerial() {
-	Serial.print(this->geefWaarde());
+void Lijnsensor::update() {
+	for(int i = 0; i < sizeof(this->sensoren); i++) {
+		this->sensoren[i]->onDetect();
+	}
 }
