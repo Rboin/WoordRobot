@@ -12,8 +12,6 @@
 
 class Lijnsensor {
 private:
-	int _pin;
-	int _waarde;
 	SensorListener *sensoren[3];
 public:
 	Lijnsensor(){};

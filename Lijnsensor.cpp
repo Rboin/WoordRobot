@@ -15,7 +15,7 @@ SensorListener **Lijnsensor::getSensoren() {
 }
 
 void Lijnsensor::update() {
-	for(int i = 0; i < sizeof(this->sensoren); i++) {
+	for(unsigned int i = 0; i < sizeof(this->sensoren); i++) {
 		this->sensoren[i]->onDetect();
 	}
 }

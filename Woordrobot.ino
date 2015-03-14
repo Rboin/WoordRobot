@@ -5,7 +5,7 @@
 #include "SensorLinks.h"
 #include "SensorRechts.h"
 #include "SensorMidden.h"
-//Pointer naar de Motors class
+
 Lijnsensor handler = Lijnsensor();
 Motors motor = Motors();
 SensorLinks links = SensorLinks(handler, motor, A1);
