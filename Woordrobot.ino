@@ -11,12 +11,16 @@ Motors motor = Motors();
 SensorLinks links = SensorLinks(handler, motor, A1);
 SensorRechts rechts = SensorRechts(handler, motor, A2);
 SensorMidden midden= SensorMidden(handler, motor, A3);
-Robot robot = Robot(handler);
-//bool volgen = false;
+Robot robot = Robot(handler, 0);
 
 void setup() {
-	//Sensoren
 
+	robot.initDisplay(false, 8);
+	// Voorbeeld hoe je kan werken met de display
+	robot.setDisplay(1, 0, 'l', '1', false, 1000);
+	robot.setDisplay(1, 0, 'l', '2', false, 1000);
+
+	//Sensoren
 	Serial.begin(9600);
 	if(robot.vindReferentieLijn()) {
 		Serial.println("gevonden!");

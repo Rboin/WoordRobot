@@ -86,7 +86,6 @@ void Motors::links(double degrees) {
 		analogWrite(5, this->snelheidMotorLinks);
 		analogWrite(6, this->snelheidMotorRechts);
 		currentMillis = millis();
-//		delay(degrees*this->oneDegree);
 	}
 	analogWrite(5, 0);
 	analogWrite(6, 0);
@@ -122,7 +121,6 @@ void Motors::rechts(double degrees) {
 		analogWrite(5, this->snelheidMotorLinks);
 		analogWrite(6, this->snelheidMotorRechts);
 		currentMillis = millis();
-//		delay(degrees*this->oneDegree);
 	}
 	analogWrite(5, 0);
 	analogWrite(6, 0);
