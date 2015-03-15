@@ -9,21 +9,17 @@
 #define ROBOT_H_
 
 #include <Arduino.h>
-#include "Lijnsensor.h"
 #include "Motors.h"
+#include "Lijnsensor.h"
 
 class Robot {
 public:
-	Robot();
-	bool lijnGevonden();
+	Robot(Lijnsensor handler);
 	bool vindReferentieLijn();
-	Lijnsensor getSensor1();
-	Lijnsensor getSensor2();
-	Lijnsensor getSensor3();
 	Motors getMotor();
 private:
 	Motors motor;
-	Lijnsensor s1, s2, s3;
+	Lijnsensor handler;
 };
 
 

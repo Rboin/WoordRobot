@@ -1,10 +1,26 @@
 #include <Servo.h>
 #include "Robot.h"
-//Pointer naar de Motors class
-Robot robot = Robot();
+#include "Motors.h"
+#include "Lijnsensor.h"
+#include "SensorLinks.h"
+#include "SensorRechts.h"
+#include "SensorMidden.h"
+
+Lijnsensor handler = Lijnsensor();
+Motors motor = Motors();
+SensorLinks links = SensorLinks(handler, motor, A1);
+SensorRechts rechts = SensorRechts(handler, motor, A2);
+SensorMidden midden= SensorMidden(handler, motor, A3);
+Robot robot = Robot(handler);
 //bool volgen = false;
 
 void setup() {
+	//Sensoren
+
+	Serial.begin(9600);
+	if(robot.vindReferentieLijn()) {
+		Serial.println("gevonden!");
+	}
 
 //	Serial.begin(9600);
 

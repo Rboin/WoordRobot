@@ -27,7 +27,7 @@ private:
 	int snelheidMotorLinks;
 	int snelheidMotorRechts;
 	double oneDegree;
-	long previousMillis = 0;
+	long previousMillis;
 };
 
 #endif
