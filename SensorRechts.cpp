@@ -13,7 +13,7 @@ SensorRechts::SensorRechts(Lijnsensor handler, Motors motor, int pin) {
 
 	this->motor = motor;
 	this->pin = pin;
-	handler.attachSensor(this, 2);
+	handler.attachSensor(this, 1);
 }
 
 bool SensorRechts::zietLijn() {

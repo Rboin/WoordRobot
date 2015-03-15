@@ -12,7 +12,7 @@ SensorMidden::SensorMidden(Lijnsensor handler, Motors motor, int pin) {
 
 	this->motor = motor;
 	this->pin = pin;
-	handler.attachSensor(this, 3);
+	handler.attachSensor(this, 2);
 }
 
 bool SensorMidden::zietLijn() {
