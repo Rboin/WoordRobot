@@ -10,6 +10,7 @@
 
 #include "SensorListener.h"
 #include "Motors.h"
+#include "Lijnsensor.h"
 
 class SensorMidden: public SensorListener {
 private:

@@ -6,9 +6,13 @@
 #define Motors_h
 
 #include "Arduino.h"
-#include "Lijnsensor.h"
 
 class Motors {
+private:
+	int snelheidMotorLinks;
+	int snelheidMotorRechts;
+	double oneDegree;
+	long previousMillis;
 public:
 	Motors();
 
@@ -21,13 +25,6 @@ public:
 	void rechts(double degrees);
 	void achter(int tijd);
 	void stoppen();
-
-//    void printPotWaarde(int potmeter);
-private:
-	int snelheidMotorLinks;
-	int snelheidMotorRechts;
-	double oneDegree;
-	long previousMillis;
 };
 
 #endif

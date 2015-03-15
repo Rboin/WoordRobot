@@ -6,10 +6,6 @@
 #include "Motors.h"
 
 Motors::Motors() {
-//  _pot1 = pot1;
-//  _pot2 = pot2;
-//  pinMode(pot1, INPUT);
-//  pinMode(pot2, INPUT);
 	this->previousMillis = 0;
 	pinMode(4, OUTPUT);
 	pinMode(7, OUTPUT);
@@ -19,7 +15,6 @@ Motors::Motors() {
 
 	// motoren
 	this->snelheidMotorLinks = 185;
-
 	this->snelheidMotorRechts = 170;
 }
 
@@ -45,7 +40,6 @@ void Motors::rijden(int tijd) {
 		currentMillis = millis();
 	}
 	this->previousMillis = currentMillis;
-	Serial.println("uit de eerste while");
 	while (this->snelheidMotorLinks >= 100) {
 		while (currentMillis - this->previousMillis < 50) {
 			this->snelheidMotorLinks -= 10;
@@ -53,7 +47,6 @@ void Motors::rijden(int tijd) {
 			currentMillis = millis();
 		}
 	}
-	Serial.println("Uit de tweede while");
 	analogWrite(5, 0);
 	analogWrite(6, 0);
 	this->snelheidMotorLinks = oudeLinks;
