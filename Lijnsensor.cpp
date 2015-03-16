@@ -19,7 +19,7 @@ void Lijnsensor::update() {
 
 		Serial.println(i);
 		Serial.println(this->sensoren[i]->geefWaarde());
-		delay(100);
 		this->sensoren[i]->onDetect();
+		delay(1000);
 	}
 }
