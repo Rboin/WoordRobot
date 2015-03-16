@@ -22,9 +22,9 @@ void setup() {
 
 	//Sensoren
 	Serial.begin(9600);
-	if(robot.vindReferentieLijn()) {
-		Serial.println("gevonden!");
-	}
+	Serial.println(2);
+	Serial.println(analogRead(A0));
+	//robot.vindReferentieLijn();
 
 //	Serial.begin(9600);
 

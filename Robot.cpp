@@ -20,7 +20,9 @@ Robot::Robot(Lijnsensor handler, int displayAddr) : ledControl(LedControl(12,11,
 bool Robot::vindReferentieLijn() {
 	bool gevonden = false;
 	SensorListener **sensoren = this->handler.getSensoren();
+
 	while (!gevonden) {
+		this->handler.update();
 		// Robot ziet helemaal niks (startpunt)
 		if (!sensoren[0]->zietLijn() && !sensoren[1]->zietLijn()
 				&& !sensoren[2]->zietLijn())
