@@ -17,7 +17,7 @@ private:
 	int pin;
 	Motors motor;
 public:
-	SensorLinks(Lijnsensor sensor, Motors motor, int pin);
+	SensorLinks(Lijnsensor *handler, Motors motor, int pin);
 	bool zietLijn();
 	int geefWaarde();
 	void onDetect();

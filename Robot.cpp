@@ -9,7 +9,7 @@
 #include "Robot.h"
 
 //LedControl wordt hier geinitialiseerd omdat hij anders de default constructor (LedControl::LedControl()) aanroept die niet bestaat
-Robot::Robot(Lijnsensor handler, int displayAddr) : ledControl(LedControl(12,11,10,1)) {
+Robot::Robot(Lijnsensor *handler, int displayAddr) : ledControl(LedControl(12,11,10,1)) {
 	this->handler = handler;
 	this->displayAddr = displayAddr;
 	// Initialiseer de Motoren
@@ -19,25 +19,27 @@ Robot::Robot(Lijnsensor handler, int displayAddr) : ledControl(LedControl(12,11,
 
 bool Robot::vindReferentieLijn() {
 	bool gevonden = false;
-	SensorListener **sensoren = this->handler.getSensoren();
-
+	SensorListener **sensoren = this->handler->getSensoren();
 	while (!gevonden) {
-		this->handler.update();
+		Serial.println(sensoren[0]->zietLijn());
 		// Robot ziet helemaal niks (startpunt)
 		if (!sensoren[0]->zietLijn() && !sensoren[1]->zietLijn()
-				&& !sensoren[2]->zietLijn())
-			this->handler.update();
+				&& !sensoren[2]->zietLijn()) {
+			Serial.println("dit is de eerste if");
+			delay(100);
+			this->handler->update();
+		}
 		// Robot zit op een lijn
 		if (sensoren[0]->zietLijn() && sensoren[1]->zietLijn()) {
 			// Robot rijdt over de lijn
-			this->handler.update();
+			this->handler->update();
 			// Is de lijn dik genoeg voor alle 3 sensoren? (STOPLIJN)
 			if (sensoren[0]->zietLijn() && sensoren[1]->zietLijn()
 					&& sensoren[2]->zietLijn()) {
 				this->motor.stoppen();
 				this->motor.links(45.0);
 				this->motor.rijden(2000);
-				this->handler.update();
+				this->handler->update();
 				// Of is de lijn niet dik genoeg voor alle 3 en raakt
 				//	alleen de achterste de lijn? (Referentie lijn)
 			} else if (!sensoren[0]->zietLijn() && !sensoren[1]->zietLijn()

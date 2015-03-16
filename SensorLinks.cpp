@@ -8,11 +8,11 @@
 #include "Arduino.h"
 #include "SensorLinks.h"
 
-SensorLinks::SensorLinks(Lijnsensor handler, Motors motor, int pin) {
+SensorLinks::SensorLinks(Lijnsensor *handler, Motors motor, int pin) {
 
 	this->motor = motor;
 	this->pin = pin;
-	handler.attachSensor(this, 0);
+	handler->attachSensor(this, 0);
 }
 
 bool SensorLinks::zietLijn() {

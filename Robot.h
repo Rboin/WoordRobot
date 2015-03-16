@@ -15,7 +15,7 @@
 
 class Robot {
 public:
-	Robot(Lijnsensor handler, int displayAddr);
+	Robot(Lijnsensor *handler, int displayAddr);
 	bool vindReferentieLijn();
 	void initDisplay(bool b, int intensity);
 	void setDisplay(int digit1, int digit2, char value1, char value2, bool dp, int time);
@@ -23,7 +23,7 @@ public:
 private:
 	int displayAddr;
 	Motors motor;
-	Lijnsensor handler;
+	Lijnsensor *handler;
 	LedControl ledControl;
 };
 

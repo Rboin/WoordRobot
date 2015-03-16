@@ -9,11 +9,11 @@
 #include "Arduino.h"
 #include "SensorRechts.h"
 
-SensorRechts::SensorRechts(Lijnsensor handler, Motors motor, int pin) {
+SensorRechts::SensorRechts(Lijnsensor *handler, Motors motor, int pin) {
 
 	this->motor = motor;
 	this->pin = pin;
-	handler.attachSensor(this, 1);
+	handler->attachSensor(this, 1);
 }
 
 bool SensorRechts::zietLijn() {

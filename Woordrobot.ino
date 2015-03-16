@@ -6,25 +6,24 @@
 #include "SensorRechts.h"
 #include "SensorMidden.h"
 
-Lijnsensor handler = Lijnsensor();
+Lijnsensor *handler = new Lijnsensor();
 Motors motor = Motors();
-SensorLinks links = SensorLinks(handler, motor, A1);
-SensorRechts rechts = SensorRechts(handler, motor, A2);
-SensorMidden midden= SensorMidden(handler, motor, A3);
-Robot robot = Robot(handler, 0);
+SensorLinks *links = new SensorLinks(handler, motor, A1);
+SensorRechts *rechts = new SensorRechts(handler, motor, A2);
+SensorMidden *midden= new SensorMidden(handler, motor, A3);
+Robot *robot = new Robot(handler, 0);
 
 void setup() {
+	Serial.begin(9600);
 
-	robot.initDisplay(false, 8);
+	robot->initDisplay(false, 8);
 	// Voorbeeld hoe je kan werken met de display
-	robot.setDisplay(1, 0, 'l', '1', false, 1000);
-	robot.setDisplay(1, 0, 'l', '2', false, 1000);
+	robot->setDisplay(1, 0, 'l', '1', false, 1000);
+	robot->setDisplay(1, 0, 'l', '2', false, 1000);
 
 	//Sensoren
-	Serial.begin(9600);
-	Serial.println(2);
-	Serial.println(analogRead(A0));
-	//robot.vindReferentieLijn();
+	Serial.println("In Setup");
+	robot->vindReferentieLijn();
 
 //	Serial.begin(9600);
 
