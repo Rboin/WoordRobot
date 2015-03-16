@@ -17,7 +17,7 @@ SensorMidden::SensorMidden(Lijnsensor handler, Motors motor, int pin) {
 
 bool SensorMidden::zietLijn() {
 	bool zietlijn = false;
-	if(this->geefWaarde() > 1000) {
+	if(this->geefWaarde() > 989) {
 		zietlijn = true;
 	}
 	return zietlijn;
