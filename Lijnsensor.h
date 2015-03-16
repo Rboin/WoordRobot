@@ -6,7 +6,6 @@
 #define Lijnsensor_h
 
 #include "Arduino.h"
-#include <stdlib.h>
 #include "SensorListener.h"
 
 class Lijnsensor {
