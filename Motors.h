@@ -24,6 +24,7 @@ public:
 	void rechts(int tijd);
 	void rechts(double degrees);
 	void achter(int tijd);
+	void achter();
 	void stoppen();
 };
 

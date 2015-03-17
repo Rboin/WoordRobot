@@ -15,16 +15,19 @@
 
 class Robot {
 public:
-	Robot(Lijnsensor *handler, int displayAddr);
+	Robot(Lijnsensor *handler, Motors motos, int displayAddr);
 	bool vindReferentieLijn();
 	void initDisplay(bool b, int intensity);
 	void setDisplay(int digit1, int digit2, char value1, char value2, bool dp, int time);
 	Motors getMotor();
+	void achterNaarLijn();
+	bool vindEinde();
 private:
 	int displayAddr;
 	Motors motor;
 	Lijnsensor *handler;
 	LedControl ledControl;
+	SensorListener **sensoren;
 };
 
 

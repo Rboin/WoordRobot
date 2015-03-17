@@ -11,10 +11,10 @@ Motors::Motors() {
 	pinMode(7, OUTPUT);
 
 	// 1 graden is X aantal ms
-	this->oneDegree = 19.722222222;
+	this->oneDegree = 20.3;
 
 	// motoren
-	this->snelheidMotorLinks = 185;
+	this->snelheidMotorLinks = 160;
 	this->snelheidMotorRechts = 170;
 }
 
@@ -25,32 +25,22 @@ void Motors::rijden() {
 	analogWrite(6, this->snelheidMotorRechts);
 }
 
+
 void Motors::rijden(int tijd) {
-	int oudeLinks = 190;
-	int oudeRechts = 170;
 	long currentMillis = millis();
+	Serial.println("millis gedaan");
 	this->previousMillis = currentMillis;
 	while (currentMillis - this->previousMillis < tijd) {
-		Serial.println(currentMillis - this->previousMillis);
-
+		Serial.println("while");
 		digitalWrite(4, HIGH);
 		digitalWrite(7, HIGH);
 		analogWrite(5, this->snelheidMotorLinks);
 		analogWrite(6, this->snelheidMotorRechts);
 		currentMillis = millis();
 	}
-	this->previousMillis = currentMillis;
-	while (this->snelheidMotorLinks >= 100) {
-		while (currentMillis - this->previousMillis < 50) {
-			this->snelheidMotorLinks -= 10;
-			this->snelheidMotorRechts -= 10;
-			currentMillis = millis();
-		}
-	}
+	Serial.println("na de while");
 	analogWrite(5, 0);
 	analogWrite(6, 0);
-	this->snelheidMotorLinks = oudeLinks;
-	this->snelheidMotorRechts = oudeRechts;
 }
 
 void Motors::verandersnelheid(int delta) {
@@ -128,28 +118,30 @@ void Motors::rechts(double degrees) {
 }
 
 void Motors::achter(int tijd) {
-	int oudeLinks = 190;
-	int oudeRechts = 170;
+	int oudeLinks = 205;
+	int oudeRechts = 160;
 	long currentMillis = millis();
+	Serial.println("millis gedaan");
 	this->previousMillis = currentMillis;
 	while (currentMillis - this->previousMillis < tijd) {
-		digitalWrite(4, HIGH);
-		digitalWrite(7, HIGH);
+		Serial.println("while");
+		Serial.println(currentMillis);
+		digitalWrite(4, LOW);
+		digitalWrite(7, LOW);
 		analogWrite(5, this->snelheidMotorLinks);
 		analogWrite(6, this->snelheidMotorRechts);
 		currentMillis = millis();
 	}
-	this->previousMillis = currentMillis;
-	while (this->snelheidMotorLinks >= 100) {
-		while (currentMillis - this->previousMillis < tijd) {
-			this->snelheidMotorLinks -= 10;
-			this->snelheidMotorRechts -= 10;
-		}
-	}
-	this->snelheidMotorLinks = oudeLinks;
-	this->snelheidMotorRechts = oudeRechts;
+	Serial.println("na de while");
 	analogWrite(5, 0);
 	analogWrite(6, 0);
+}
+
+void Motors::achter() {
+	digitalWrite(4, LOW);
+	digitalWrite(7, LOW);
+	analogWrite(5, this->snelheidMotorLinks);
+	analogWrite(6, this->snelheidMotorRechts);
 }
 
 void Motors::stoppen() {
